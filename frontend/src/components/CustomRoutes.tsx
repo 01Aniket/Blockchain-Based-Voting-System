@@ -11,12 +11,20 @@ import ProfilePage from "../pages/User/Profile";
 import Default from "../layouts/Default";
 import AdminUsersPage from "../pages/Admin/Users";
 import AdminVerifyPage from "../pages/Admin/Verify";
+import Spinner from "./Spinner";
 
 export default () => {
   const authContext = useContext(AuthContext);
 
   const getRoutes = (): JSX.Element => {
-    if (authContext.loading) return <div>loading...</div>;
+    if (authContext.loading)
+      return (
+        <div className="loading-container">
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Spinner spinning={true} />
+          </div>
+        </div>
+      );
 
     if (authContext.authenticated) {
       // if the user is authenticated then
