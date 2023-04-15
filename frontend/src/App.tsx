@@ -7,10 +7,12 @@ import CustomRoutes from "./components/CustomRoutes";
 const App = () => {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <CustomRoutes />
-      </AuthProvider>
-      <Footer />
+      <div style={{ height: "100vh" }}>
+        <AuthProvider>
+          <CustomRoutes />
+        </AuthProvider>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 };

@@ -19,7 +19,7 @@ const Landing = () => {
           </Link>
 
           <Link to="/view">
-            <button>View Votes</button>
+            <button style={{ marginLeft: "1rem" }}>View Votes</button>
           </Link>
         </div>
       </div>
