@@ -10,11 +10,15 @@ type User = {
   id: number;
   name: string;
   admin: boolean;
+  email: string;
+  citizenshipNumber: number | null;
 };
 
 export const AuthContext = createContext({
   id: 0,
   name: "",
+  email: "",
+  citizenshipNumber: null as number | null,
   isAdmin: false,
   authenticated: false,
   accessToken: "",
@@ -29,6 +33,8 @@ export default (props: ContextProps): JSX.Element => {
   const [authentication, setAuthentication] = useState({
     id: 0,
     name: "",
+    email: "",
+    citizenshipNumber: null as number | null,
     isAdmin: false,
     authenticated: false,
     accessToken: "",
@@ -66,6 +72,8 @@ export default (props: ContextProps): JSX.Element => {
       authenticated: true,
       accessToken: token,
       loading: false,
+      email: user.email,
+      citizenshipNumber: user.citizenshipNumber,
     });
 
     if (redirect) navigate("/");
@@ -77,6 +85,8 @@ export default (props: ContextProps): JSX.Element => {
     setAuthentication({
       id: 0,
       name: "",
+      citizenshipNumber: null,
+      email: "",
       isAdmin: false,
       authenticated: false,
       accessToken: "",
@@ -91,6 +101,8 @@ export default (props: ContextProps): JSX.Element => {
       value={{
         id: authentication.id,
         name: authentication.name,
+        email: authentication.email,
+        citizenshipNumber: authentication.citizenshipNumber,
         isAdmin: authentication.isAdmin,
         authenticated: authentication.authenticated,
         accessToken: authentication.accessToken,
