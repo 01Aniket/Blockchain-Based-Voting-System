@@ -14,7 +14,9 @@ const Polls = () => {
         setData(res.data);
         setLoading(false);
       })
-      .catch((err) => console.log({ err }));
+      .catch((err) => {
+        throw new Error(err);
+      });
   }, []);
 
   if (loading) return <div></div>;

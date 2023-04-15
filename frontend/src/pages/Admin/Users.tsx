@@ -15,31 +15,35 @@ const Users = () => {
     axios
       .get("/users/all")
       .then((res) => setUser(res.data.users))
-      .catch((error) => console.log({ error }));
+      .catch((error) => {
+        throw new Error(error);
+      });
   }, []);
 
   const verifyUser = (id: number | string) => {
     axios
       .post("/users/verify", { userId: id })
       .then((res) => {
-        console.log(res);
         removeUserFromList(id);
       })
-      .catch((error) => console.log({ error }));
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 
   const deleteUser = (id: number | string) => {
     axios
       .delete(`/users/delete/${id}`)
       .then((res) => {
-        console.log(res);
         removeUserFromList(id);
       })
-      .catch((error) => console.log({ error }));
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 
   const removeUserFromList = (id: number | string) => {
-    const index = users.findIndex((user) => user.id == id);
+    const index = users.findIndex((user) => user.id === id);
     const newList = [...users];
     newList.splice(index, 1);
     setUser(newList);

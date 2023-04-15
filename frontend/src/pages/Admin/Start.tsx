@@ -15,7 +15,6 @@ interface Candidate {
 
 const Start = () => {
   const [candidates, setCandidates] = useState<Array<Candidate>>([]);
-  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [info, setInfo] = useState<string>("");
@@ -34,8 +33,6 @@ const Start = () => {
         }}
         validationSchema={schema}
         onSubmit={({ name, description }) => {
-          setLoading(true);
-
           let candidatesError = "";
 
           if (candidates.length < 2) candidatesError = "Not Enough Candidates";
@@ -66,7 +63,6 @@ const Start = () => {
                 let error = err.message;
                 if (err?.response?.data) error = err.response.data;
                 setError(error.slice(0, 50));
-                setLoading(false);
               });
           }
         }}

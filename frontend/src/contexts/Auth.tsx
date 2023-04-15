@@ -40,8 +40,8 @@ export default (props: ContextProps): JSX.Element => {
       .post("/auth/check")
       .then((res) => authenticate(res.data.user, res.data.accessToken, false))
       .catch((error) => {
-        console.log(error);
         setAuthentication({ ...authentication, loading: false });
+        throw new Error(error);
       });
   };
 
@@ -51,6 +51,7 @@ export default (props: ContextProps): JSX.Element => {
     const interval = setInterval(checkAuthentication, 5 * 1000);
 
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const authenticate = (

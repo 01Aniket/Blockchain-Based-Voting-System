@@ -19,7 +19,9 @@ const Home = (props: RouteProps): JSX.Element => {
         setStatus(res.data.status);
         setLoading(false);
       })
-      .catch((error) => console.log({ error }));
+      .catch((error) => {
+        throw new Error(error);
+      });
   }, []);
 
   if (loading) return <div></div>;

@@ -22,7 +22,9 @@ const Chart = (props: ChartProps) => {
           candidate,
         })
         .then((_) => window.location.reload())
-        .catch((err) => console.log({ err }));
+        .catch((err) => {
+          throw new Error(err);
+        });
     };
 
     for (const name in votes) {
@@ -74,7 +76,7 @@ const Chart = (props: ChartProps) => {
         <div key={name} className="bar-wrapper">
           <div
             style={{
-              height: count != 0 ? `${(count * 100) / total}%` : "auto",
+              height: count !== 0 ? `${(count * 100) / total}%` : "auto",
               border: "2px solid #4daaa7",
               display: "flex",
               flexDirection: "column",

@@ -8,15 +8,19 @@ const Verify = () => {
   const verifyUser = () => {
     axios
       .post("/users/verify", { userId: id })
-      .then((res) => console.log({ res }))
-      .catch((error) => console.log({ error }));
+      .then(() => {})
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 
   const deleteUser = () => {
     axios
       .delete(`/users/delete/${id}`)
-      .then((res) => console.log({ res }))
-      .catch((error) => console.log({ error }));
+      .then(() => {})
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 
   return (

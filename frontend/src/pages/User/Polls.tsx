@@ -18,22 +18,21 @@ const User = () => {
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
-    console.log("called here ?");
-
     axios
       .get("/polls/status")
       .then((res) => {
         setVoteStatus(res.data.status);
         setLoading(false);
       })
-      .catch((error) => console.log({ error }));
+      .catch((error) => {
+        throw new Error(error);
+      });
   }, []);
 
   useEffect(() => {
     if (voteState !== "checking") {
       axios.get("/polls/").then((res) => {
         setData(res.data);
-        console.log(res);
         setLoading(false);
       });
 
@@ -44,7 +43,9 @@ const User = () => {
         .then((res) => {
           setVotable(res.data);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          throw new Error(err);
+        });
     }
   });
 

@@ -23,7 +23,7 @@ const Features = () => {
         </div>
 
         <div className="mobile-container">
-          <img src="/mobile.png" />
+          <img src="/mobile.png" alt="mobile" />
         </div>
 
         <div>
