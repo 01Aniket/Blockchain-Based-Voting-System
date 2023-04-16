@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../axios";
+import { Empty } from "antd";
 
 type User = {
   id: number;
@@ -49,7 +50,15 @@ const Users = () => {
     setUser(newList);
   };
 
-  if (users.length === 0) return <div></div>;
+  if (users.length === 0)
+    return (
+      <div className="empty-container">
+        <Empty
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
+          description={"No users to verify"}
+        />
+      </div>
+    );
 
   return (
     <div className="users-wrapper">
