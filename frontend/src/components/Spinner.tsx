@@ -1,11 +1,13 @@
 import React from "react";
 import { Spin } from "antd";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { LoadingOutlined } from "@ant-design/icons";
 
 const Spinner = ({
   spinning,
   size = 40,
+}: {
+  spinning: boolean;
+  size?: number;
 }) => {
   return (
     <div className="spinner">
