@@ -19,10 +19,13 @@
 .candidates-container {
   padding-bottom: 20px;
   display: flex;
+  width: 400px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
 
   .candidate-wrapper {
     padding: 10px 20px 10px 20px;
-    margin-right: 10px;
     background-color: $theme-gray;
     border-radius: 100px;
     display: flex;

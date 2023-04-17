@@ -13,7 +13,11 @@ interface Candidate {
   info: string;
 }
 
-const Start = () => {
+const Start = ({
+  setStatus,
+}: {
+  setStatus: (status: "running" | "finished" | "not-started") => void;
+}) => {
   const [candidates, setCandidates] = useState<Array<Candidate>>([]);
   const [error, setError] = useState<string>("");
   const [name, setName] = useState<string>("");
@@ -25,7 +29,9 @@ const Start = () => {
   return (
     <div>
       <div>
-        <h1 className="title-small" style={{ textAlign: "center" }}>Create an Election</h1>
+        <h1 className="title-small" style={{ textAlign: "center" }}>
+          Create an Election
+        </h1>
         <div className="form-container">
           {error !== "" ? (
             <div className="error-message">
@@ -50,7 +56,7 @@ const Start = () => {
                 axios
                   .post("/polls/start", { name, description, candidates })
                   .then((_) => {
-                    window.location.reload();
+                    setStatus("running");
                   })
                   .catch((err) => {
                     throw new Error(err);
