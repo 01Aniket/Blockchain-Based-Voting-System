@@ -1,8 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "../axios";
-import { toast } from "react-toastify";
-import { toastConfig } from "../constants/toast.config";
 
 type ContextProps = {
   children: JSX.Element;
@@ -94,7 +92,6 @@ export default (props: ContextProps): JSX.Element => {
       loading: false,
     });
     navigate("/");
-    toast.info("Logged out.", toastConfig);
   };
 
   return (

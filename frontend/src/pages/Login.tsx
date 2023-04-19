@@ -35,7 +35,6 @@ const Login = (props: RouteProps): JSX.Element => {
                 .post("/auth/login", { ...values })
                 .then((res) => {
                   authContext.authenticate(res.data.user, res.data.accessToken);
-                  toast.info("Logged in.", toastConfig);
                 })
                 .catch((err) => {
                   let error = err.message;
