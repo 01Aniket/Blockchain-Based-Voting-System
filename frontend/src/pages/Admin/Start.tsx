@@ -1,7 +1,9 @@
 import React, { useRef, useState } from "react";
 import { Formik } from "formik";
 import axios from "../../axios";
+import { toast } from "react-toastify";
 import * as yup from "yup";
+import { toastConfig } from "../../constants/toast.config";
 
 const schema = yup.object({
   name: yup.string().min(3).required(),
@@ -56,6 +58,7 @@ const Start = ({
                 axios
                   .post("/polls/start", { name, description, candidates })
                   .then((_) => {
+                    toast.success("Election Started.", toastConfig);
                     setStatus("running");
                   })
                   .catch((err) => {

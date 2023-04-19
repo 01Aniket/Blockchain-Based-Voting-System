@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../axios";
 import { Empty } from "antd";
+import { toast } from "react-toastify";
+import { toastConfig } from "../../constants/toast.config";
 
 type User = {
   id: number;
@@ -26,6 +28,7 @@ const Users = () => {
       .post("/users/verify", { userId: id })
       .then((res) => {
         removeUserFromList(id);
+        toast.success("User verified.", toastConfig);
       })
       .catch((error) => {
         throw new Error(error);
@@ -37,6 +40,7 @@ const Users = () => {
       .delete(`/users/delete/${id}`)
       .then((res) => {
         removeUserFromList(id);
+        toast.info("User deleted.", toastConfig);
       })
       .catch((error) => {
         throw new Error(error);
@@ -64,9 +68,21 @@ const Users = () => {
     <div className="users-wrapper">
       {users.map((user, index) => (
         <div key={index} className="user-wrapper">
-          {user.name}
+          <div className="verify-icon-container">
+            <div className="verify-icon">
+              <i className="bi bi-person-circle"></i>
+            </div>
+            {user.name}
+          </div>
 
-          <div>
+          <div style={{ marginRight: "10px" }}>
+            <p>
+              Citizenship number:{" "}
+              <span style={{ color: "green" }}>{user.citizenshipNumber}</span>
+            </p>
+            <p>
+              Email: <span>{user.email}</span>
+            </p>
             <button
               onClick={() => verifyUser(user.id)}
               className="button-primary"

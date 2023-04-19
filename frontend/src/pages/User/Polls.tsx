@@ -60,7 +60,7 @@ const User = () => {
     );
 
   if (voteState === "not-started")
-    return <Waiting title="WAITING FOR THE ELECTION TO STAR" />;
+    return <Waiting title="WAITING FOR THE ELECTION TO START" />;
 
   return (
     <Panel name={data.name} description={data.description}>

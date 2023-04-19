@@ -5,6 +5,9 @@ import Panel from "../../components/Polls/Panel";
 import Button from "../../components/Button";
 import Spinner from "../../components/Spinner";
 import Confetti from "react-confetti";
+import { toast } from "react-toastify";
+import { toastConfig } from "../../constants/toast.config";
+import getHighestVotes from "../../utils/getHighestVotes";
 
 const Polls = ({
   status,
@@ -22,12 +25,23 @@ const Polls = ({
       setLoading(false);
     });
   }, []);
+
   const endElection = () => {
     axios
       .post("/polls/end")
       .then((_) => {
-        setStatus("finished");
         setShowConfetti(true);
+        setStatus("finished");
+        toast(
+          "Congratulations " +
+            getHighestVotes(data).join(", ") +
+            " for winning the election.",
+          {
+            ...toastConfig,
+            position: "top-center",
+            autoClose: 2800,
+          }
+        );
       })
       .catch((err) => {
         throw new Error(err);
@@ -38,6 +52,7 @@ const Polls = ({
       .post("/polls/reset")
       .then((_) => {
         setStatus("not-started");
+        toast.info("Election has been reset.", toastConfig);
       })
       .catch((err) => {
         throw new Error(err);

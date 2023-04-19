@@ -10,7 +10,6 @@ import HomePage from "../pages/Admin/Home";
 import ProfilePage from "../pages/User/Profile";
 import Default from "../layouts/Default";
 import AdminUsersPage from "../pages/Admin/Users";
-import AdminVerifyPage from "../pages/Admin/Verify";
 import Spinner from "./Spinner";
 
 export default () => {
@@ -47,7 +46,6 @@ export default () => {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/users" element={<AdminUsersPage />} />
-              <Route path="/verify/:name/:id" element={<AdminVerifyPage />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Routes>
           </Default>

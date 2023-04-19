@@ -4,6 +4,8 @@ import { Formik } from "formik";
 import LoginLayout from "../layouts/Login";
 import * as Yup from "yup";
 import axios from "../axios";
+import { toastConfig } from "../constants/toast.config";
+import { toast } from "react-toastify";
 
 const schema = Yup.object().shape({
   name: Yup.string().min(3).required(),
@@ -19,11 +21,10 @@ const Signup = (): JSX.Element => {
   const navigate = useNavigate();
 
   const [error, setError] = useState<any>("");
-  const [success, setSuccess] = useState<string>("");
 
   return (
     <div>
-      <LoginLayout error={error} success={success}>
+      <LoginLayout error={error}>
         <div className="form-container">
           <Formik
             initialValues={{
@@ -44,13 +45,14 @@ const Signup = (): JSX.Element => {
                 })
                 .then((res) => {
                   setError("");
-                  setSuccess("Signup Successful!");
+                  toast.success("Signup Successful!", toastConfig);
                 })
                 .catch((err) => {
                   let error: string = err.message;
                   if (err?.response?.data)
                     error = JSON.stringify(err.response.data);
-                  setError(error.slice(0, 50));
+                  setError(error);
+                  toast.error("Something went wrong", toastConfig);
                 });
             }}
           >

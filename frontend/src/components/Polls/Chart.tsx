@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "../../axios";
+import { toastConfig } from "../../constants/toast.config";
+import { toast } from "react-toastify";
 
 interface ChartProps {
   votes: any;
@@ -20,7 +22,12 @@ const Chart = (props: ChartProps) => {
         name: props.userName,
         candidate,
       })
-      .then((_) => (props.setVotable ? props.setVotable("voted") : null))
+      .then((_) =>
+        props.setVotable
+          ? (props.setVotable("voted"),
+            toast.success("Your vote has been cast successfully", toastConfig))
+          : null
+      )
       .catch((err) => {
         throw new Error(err);
       });

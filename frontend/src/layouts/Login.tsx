@@ -3,8 +3,7 @@ import { useNavigate } from "react-router";
 import BackButton from "../components/Back";
 
 interface LayoutProps {
-  error: string;
-  success?: string;
+  error?: string;
   children: JSX.Element;
 }
 
@@ -28,15 +27,6 @@ const Login = (props: LayoutProps) => {
               <i className="bi bi-exclamation-circle"></i>
             </span>
             <span>{props.error} ...</span>
-          </div>
-        ) : null}
-
-        {props.success && props.success !== "" ? (
-          <div className="success-message">
-            <span>
-              <i className="bi bi-check-circle"></i>
-            </span>
-            <span>{props.success} ...</span>
           </div>
         ) : null}
 

@@ -6,6 +6,8 @@ import LoginLayout from "../layouts/Login";
 import * as Yup from "yup";
 import axios from "../axios";
 import { AuthContext } from "../contexts/Auth";
+import { toastConfig } from "../constants/toast.config";
+import { toast } from "react-toastify";
 
 const schema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -33,12 +35,14 @@ const Login = (props: RouteProps): JSX.Element => {
                 .post("/auth/login", { ...values })
                 .then((res) => {
                   authContext.authenticate(res.data.user, res.data.accessToken);
+                  toast.info("Logged in.", toastConfig);
                 })
                 .catch((err) => {
                   let error = err.message;
                   if (err?.response?.data)
                     error = JSON.stringify(err.response.data);
                   setError(error);
+                  toast.error(error, toastConfig);
                 });
             }}
           >

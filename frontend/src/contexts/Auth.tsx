@@ -1,6 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "../axios";
+import { toast } from "react-toastify";
+import { toastConfig } from "../constants/toast.config";
 
 type ContextProps = {
   children: JSX.Element;
@@ -81,7 +83,6 @@ export default (props: ContextProps): JSX.Element => {
 
   const logout = async () => {
     await axios.post("/auth/logout");
-
     setAuthentication({
       id: 0,
       name: "",
@@ -92,8 +93,8 @@ export default (props: ContextProps): JSX.Element => {
       accessToken: "",
       loading: false,
     });
-
     navigate("/");
+    toast.info("Logged out.", toastConfig);
   };
 
   return (
