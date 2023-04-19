@@ -38,10 +38,11 @@ const Login = (props: RouteProps): JSX.Element => {
                 })
                 .catch((err) => {
                   let error = err.message;
-                  if (err?.response?.data)
-                    error = JSON.stringify(err.response.data);
-                  setError(error);
-                  toast.error(error, toastConfig);
+                  if (err?.response?.data) {
+                    error = err.response.data.message;
+                  }
+                  setError(error.slice(0, 25));
+                  toast.error(error.slice(0, 25), toastConfig);
                 });
             }}
           >
