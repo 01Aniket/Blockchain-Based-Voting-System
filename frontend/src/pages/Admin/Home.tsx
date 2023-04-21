@@ -3,7 +3,7 @@ import { RouteProps } from "react-router";
 import axios from "../../axios";
 import StartPage from "./Start";
 import PollsPage from "./Polls";
-import ResultPage from "./Result";
+import Spinner from "../../components/Spinner";
 
 const Home = (props: RouteProps): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -19,15 +19,24 @@ const Home = (props: RouteProps): JSX.Element => {
         setStatus(res.data.status);
         setLoading(false);
       })
-      .catch((error) => console.log({ error }));
+      .catch((error) => {
+        throw new Error(error);
+      });
   }, []);
 
-  if (loading) return <div></div>;
+  if (loading)
+    return (
+      <div className="loading-container">
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Spinner spinning={true} />
+        </div>
+      </div>
+    );
 
-  if (status === "finished") return <ResultPage />;
-  if (status === "running") return <PollsPage />;
+  if (status === "running" || status === "finished")
+    return <PollsPage {...{ status, setStatus }} />;
 
-  return <StartPage />;
+  return <StartPage {...{ setStatus }} />;
 };
 
 export default Home;

@@ -64,7 +64,7 @@ const Default = (props: DefaultProps) => {
                 navigate(link);
               }}
               className={`default-sidebar-link ${
-                pathname == link ? "active" : ""
+                pathname === link ? "active" : ""
               }`}
             >
               {name}

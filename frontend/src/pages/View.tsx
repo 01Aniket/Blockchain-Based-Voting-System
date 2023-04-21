@@ -22,7 +22,9 @@ const View = (props: RouteProps): JSX.Element => {
         setStatus(res.data.status);
         setLoading(false);
       })
-      .catch((error) => console.log({ error }));
+      .catch((error) => {
+        throw new Error(error);
+      });
   }, []);
 
   let comp = <div></div>;

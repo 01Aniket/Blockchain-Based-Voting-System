@@ -32,6 +32,7 @@ export default async (req: Request, res: Response) => {
       phone: user.phone,
       email: user.email,
       admin: user.admin,
+      citizenshipNumber: user.citizenshipNumber,
     };
 
     const accessToken = jwt.sign(userPlainObj, accessTokenSecret, {

@@ -26,6 +26,10 @@
   button {
     width: 100%;
   }
+  button:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+  }
 
   hr {
     margin: 30px;
@@ -42,8 +46,9 @@
 }
 
 .form-error-text {
-  color: $theme-secondary;
-  text-transform: lowercase;
+  color: #eb0404df;
   font-weight: 400;
   font-size: 0.9rem;
+  margin-top: 5px;
+  margin-left: 4px;
 }

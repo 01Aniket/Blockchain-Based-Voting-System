@@ -6,7 +6,7 @@ const Landing = () => {
     <div className="landing">
       <div className="left">
         <div className="logo">
-          <img src="logo.png" />
+          <img src="logo.png" alt="logo" />
         </div>
 
         <div className="title-large">Blockchain Based</div>
@@ -19,13 +19,13 @@ const Landing = () => {
           </Link>
 
           <Link to="/view">
-            <button>View Votes</button>
+            <button style={{ marginLeft: "1rem" }}>View Votes</button>
           </Link>
         </div>
       </div>
 
       <div className="right">
-        <img src="vote.gif" />
+        <img src="vote.gif" alt="vote" />
       </div>
     </div>
   );

@@ -14,12 +14,12 @@
 
   .cog {
     animation: rotate360 3s linear infinite;
+    margin-right: 1rem;
 
     * {
-      font-size: 20rem;
+      font-size: 13rem;
       color: $theme-primary;
       padding-top: 18px;
-      margin: 0;
     }
   }
 }
