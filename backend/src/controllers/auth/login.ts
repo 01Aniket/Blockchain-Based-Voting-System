@@ -26,17 +26,16 @@ export default async (req: Request, res: Response) => {
   try {
     user = await User.findOneOrFail({ email: req.body.email });
   } catch (error: any) {
-    return res.status(404).send(error);
+    return res.status(404).send("User not found");
   }
 
-  if (!user.verified) return res.status(400).send("Not verified");
+  if (!user.verified) return res.status(400).send("User not verified");
 
   const match = await bcrypt.compare(req.body.password, user.password);
   //exits if password doesn't match
   if (!match) return res.status(400).send("password doesn't match");
 
   // if the code reaches here then the user is authenticated
-  // hurray :D
 
   const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
   const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router";
 import { Formik } from "formik";
 import LoginLayout from "../layouts/Login";
@@ -20,11 +20,9 @@ const schema = Yup.object().shape({
 const Signup = (): JSX.Element => {
   const navigate = useNavigate();
 
-  const [error, setError] = useState<any>("");
-
   return (
     <div>
-      <LoginLayout error={error}>
+      <LoginLayout>
         <div className="form-container">
           <Formik
             initialValues={{
@@ -44,15 +42,14 @@ const Signup = (): JSX.Element => {
                   password,
                 })
                 .then((res) => {
-                  setError("");
                   toast.success("Signup Successful!", toastConfig);
                 })
                 .catch((err) => {
-                  let error: string = err.message;
-                  if (err?.response?.data)
-                    error = JSON.stringify(err.response.data);
-                  setError(error);
-                  toast.error("Something went wrong", toastConfig);
+                  let error = err.message;
+                  if (err?.response?.data) {
+                    error = err.response.data;
+                  }
+                  toast.error(error, toastConfig);
                 });
             }}
           >
