@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { Formik } from "formik";
 import { RouteProps } from "react-router";
@@ -8,6 +8,7 @@ import axios from "../axios";
 import { AuthContext } from "../contexts/Auth";
 import { toastConfig } from "../constants/toast.config";
 import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 const schema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -16,13 +17,21 @@ const schema = Yup.object().shape({
 
 const Login = (props: RouteProps): JSX.Element => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const authContext = useContext(AuthContext);
-
-  const [error, setError] = useState<any>("");
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Spinner spinning={loading} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
-      <LoginLayout error={error}>
+      <LoginLayout>
         <div className="form-container">
           <Formik
             initialValues={{
@@ -31,18 +40,19 @@ const Login = (props: RouteProps): JSX.Element => {
             }}
             validationSchema={schema}
             onSubmit={(values) => {
+              setLoading(true);
               axios
                 .post("/auth/login", { ...values })
                 .then((res) => {
                   authContext.authenticate(res.data.user, res.data.accessToken);
+                  setLoading(false);
                 })
                 .catch((err) => {
                   let error = err.message;
                   if (err?.response?.data) {
-                    error = err.response.data.message;
+                    error = err.response.data;
                   }
-                  setError(error.slice(0, 25));
-                  toast.error(error.slice(0, 25), toastConfig);
+                  toast.error(error, toastConfig);
                 });
             }}
           >

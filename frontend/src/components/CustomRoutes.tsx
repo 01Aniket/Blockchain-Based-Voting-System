@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
-import View from "../pages/View";
 import { AuthContext } from "../contexts/Auth";
 import UserPollsPage from "../pages/User/Polls";
 import HomePage from "../pages/Admin/Home";
@@ -11,6 +10,8 @@ import ProfilePage from "../pages/User/Profile";
 import Default from "../layouts/Default";
 import AdminUsersPage from "../pages/Admin/Users";
 import Spinner from "./Spinner";
+import ElectionGuidelines from "../pages/ElectionGuidelines";
+import Results from "../pages/Results";
 
 export default () => {
   const authContext = useContext(AuthContext);
@@ -68,7 +69,8 @@ export default () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/view" element={<View />} />
+          <Route path="/results" element={<Results />} />
+          <Route path="/votingGuidelines" element={<ElectionGuidelines />} />
         </Routes>
       );
     }

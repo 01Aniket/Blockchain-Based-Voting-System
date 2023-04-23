@@ -21,15 +21,6 @@ const Login = (props: LayoutProps) => {
       </div>
 
       <div className="right">
-        {props.error !== "" ? (
-          <div className="error-message">
-            <span>
-              <i className="bi bi-exclamation-circle"></i>
-            </span>
-            <span>{props.error} ...</span>
-          </div>
-        ) : null}
-
         <div>{props.children}</div>
       </div>
     </div>

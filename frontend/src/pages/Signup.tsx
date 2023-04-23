@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import axios from "../axios";
 import { toastConfig } from "../constants/toast.config";
 import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 const schema = Yup.object().shape({
   name: Yup.string().min(3).required(),
@@ -18,13 +19,21 @@ const schema = Yup.object().shape({
 });
 
 const Signup = (): JSX.Element => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  const [error, setError] = useState<any>("");
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Spinner spinning={loading} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
-      <LoginLayout error={error}>
+      <LoginLayout>
         <div className="form-container">
           <Formik
             initialValues={{
@@ -36,6 +45,7 @@ const Signup = (): JSX.Element => {
             }}
             validationSchema={schema}
             onSubmit={({ name, email, citizenshipNumber, password }) => {
+              setLoading(true);
               axios
                 .post("/auth/signup", {
                   name,
@@ -44,15 +54,15 @@ const Signup = (): JSX.Element => {
                   password,
                 })
                 .then((res) => {
-                  setError("");
                   toast.success("Signup Successful!", toastConfig);
+                  setLoading(false);
                 })
                 .catch((err) => {
-                  let error: string = err.message;
-                  if (err?.response?.data)
-                    error = JSON.stringify(err.response.data);
-                  setError(error);
-                  toast.error("Something went wrong", toastConfig);
+                  let error = err.message;
+                  if (err?.response?.data) {
+                    error = err.response.data;
+                  }
+                  toast.error(error, toastConfig);
                 });
             }}
           >

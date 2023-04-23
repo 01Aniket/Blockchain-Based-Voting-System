@@ -58,7 +58,7 @@ const Start = ({
                 axios
                   .post("/polls/start", { name, description, candidates })
                   .then((_) => {
-                    toast.success("Election Started.", toastConfig);
+                    toast.info("Election started.", toastConfig);
                     setStatus("running");
                   })
                   .catch((err) => {

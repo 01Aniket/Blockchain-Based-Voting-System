@@ -8,12 +8,16 @@ import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   return (
     <BrowserRouter>
-      <div style={{ height: "100vh" }}>
-        <ToastContainer />
-        <AuthProvider>
-          <CustomRoutes />
-        </AuthProvider>
-        <Footer />
+      <div className="app">
+        <div>
+          <ToastContainer />
+          <AuthProvider>
+            <CustomRoutes />
+          </AuthProvider>
+        </div>
+        <div className="footer">
+          <Footer />
+        </div>
       </div>
     </BrowserRouter>
   );
