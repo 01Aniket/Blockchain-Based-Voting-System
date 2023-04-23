@@ -103,11 +103,36 @@ button,
   justify-content: center;
 }
 .spinner {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.footer {
+  margin-top: auto;
+}
+.results-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 5rem;
+  min-height: 80vh;
+  position: relative;
+  font-size: 25px;
+  padding: 5rem 5rem 0 5rem;
+}
+
+.results-title {
+  margin-bottom: 3rem;
+  font-size: 2rem;
+  text-align: center;
 }
 
 @import "./layouts/Boxes.scss";
