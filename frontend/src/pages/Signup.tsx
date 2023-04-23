@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { Formik } from "formik";
 import LoginLayout from "../layouts/Login";
@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import axios from "../axios";
 import { toastConfig } from "../constants/toast.config";
 import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 const schema = Yup.object().shape({
   name: Yup.string().min(3).required(),
@@ -18,7 +19,17 @@ const schema = Yup.object().shape({
 });
 
 const Signup = (): JSX.Element => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Spinner spinning={loading} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -34,6 +45,7 @@ const Signup = (): JSX.Element => {
             }}
             validationSchema={schema}
             onSubmit={({ name, email, citizenshipNumber, password }) => {
+              setLoading(true);
               axios
                 .post("/auth/signup", {
                   name,
@@ -43,6 +55,7 @@ const Signup = (): JSX.Element => {
                 })
                 .then((res) => {
                   toast.success("Signup Successful!", toastConfig);
+                  setLoading(false);
                 })
                 .catch((err) => {
                   let error = err.message;

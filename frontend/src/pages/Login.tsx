@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { Formik } from "formik";
 import { RouteProps } from "react-router";
@@ -8,6 +8,7 @@ import axios from "../axios";
 import { AuthContext } from "../contexts/Auth";
 import { toastConfig } from "../constants/toast.config";
 import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 const schema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -16,7 +17,17 @@ const schema = Yup.object().shape({
 
 const Login = (props: RouteProps): JSX.Element => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const authContext = useContext(AuthContext);
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Spinner spinning={loading} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -29,10 +40,12 @@ const Login = (props: RouteProps): JSX.Element => {
             }}
             validationSchema={schema}
             onSubmit={(values) => {
+              setLoading(true);
               axios
                 .post("/auth/login", { ...values })
                 .then((res) => {
                   authContext.authenticate(res.data.user, res.data.accessToken);
+                  setLoading(false);
                 })
                 .catch((err) => {
                   let error = err.message;
