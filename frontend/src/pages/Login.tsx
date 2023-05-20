@@ -53,6 +53,7 @@ const Login = (props: RouteProps): JSX.Element => {
                     error = err.response.data;
                   }
                   toast.error(error, toastConfig);
+                  setLoading(false);
                 });
             }}
           >
